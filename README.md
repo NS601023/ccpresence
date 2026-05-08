@@ -107,7 +107,7 @@ rpc.update(
 Claude Code 内で以下を実行する。
 
 ```
-/plugin marketplace add YOUR_GITHUB_USERNAME/ccdiscord
+/plugin marketplace add NS601023/ccpresence
 /plugin install ccdiscord@ccdiscord
 ```
 
