@@ -1,0 +1,5 @@
+{
+  "name": "ccdiscord",
+  "description": "Show Claude Code activity in Discord status via Rich Presence",
+  "author": { "name": "YOUR_NAME" }
+}

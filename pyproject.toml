@@ -1,0 +1,6 @@
+[project]
+name = "ccdiscord"
+version = "0.1.0"
+description = "Discord Rich Presence plugin for Claude Code"
+requires-python = ">=3.9"
+dependencies = ["pypresence"]

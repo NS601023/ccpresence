@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CCDISCORD_HOOK_JSON=$(cat) uv run --script \"${CLAUDE_PLUGIN_ROOT}/scripts/discord_rpc.py\" &"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "SESSION_ID=$(python3 -c 'import sys,json; print(json.load(sys.stdin).get(\"session_id\") or \"default\")' 2>/dev/null || echo default); PID_FILE=\"${TMPDIR:-/tmp}/ccdiscord/${SESSION_ID}.pid\"; [ -f \"$PID_FILE\" ] && kill \"$(cat \"$PID_FILE\")\" 2>/dev/null; rm -f \"$PID_FILE\"; true"
+          }
+        ]
+      }
+    ]
+  }
+}
