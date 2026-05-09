@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "ccdiscord": {
+      "source": {
+        "source": "github",
+        "repo": "NS601023/ccpresence"
+      }
+    }
+  }
+}

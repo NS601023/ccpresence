@@ -59,10 +59,17 @@ except ImportError as exc:
     log(f"failed to import pypresence: {exc}")
     cleanup()
 
+START_TIME = int(time.time())
+
+
+def _update() -> None:
+    rpc.update(details=DETAILS, state=STATE, start=START_TIME)
+
+
 try:
     rpc = Presence(CLIENT_ID)
     rpc.connect()
-    rpc.update(details=DETAILS, state=STATE, start=int(time.time()))
+    _update()
 except Exception as exc:
     name = type(exc).__name__
     if name == "DiscordNotFound":
@@ -71,5 +78,30 @@ except Exception as exc:
         log(f"could not connect to Discord. ({name}: {exc})")
     cleanup()
 
+connected = True
 while True:
     time.sleep(15)
+    try:
+        _update()
+        if not connected:
+            log("reconnected to Discord.")
+            connected = True
+        continue
+    except Exception:
+        pass
+
+    try:
+        rpc.close()
+    except Exception:
+        pass
+    try:
+        rpc = Presence(CLIENT_ID)
+        rpc.connect()
+        _update()
+        if not connected:
+            log("reconnected to Discord.")
+        connected = True
+    except Exception:
+        if connected:
+            log("lost connection to Discord. Will keep retrying.")
+        connected = False
